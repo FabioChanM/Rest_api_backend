@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>NASA API Example</title>
+</head>
+<body>
+  <h1>NASA Astronomy Picture of the Day (APOD)</h1>
+  <div id="apod-container">
+    <p>Loading...</p>
+  </div>
+
+  <script>
+    fetch('/apod')
+      .then(response => response.json())
+      .then(data => {
+        const apodContainer = document.getElementById('apod-container');
+        const html = `
+          <h2>${data.title}</h2>
+          <img src="${data.url}" alt="${data.title}" width="500">
+          <p>${data.explanation}</p>
+        `;
+        apodContainer.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error:', error.message);
+      });
+  </script>
+</body>
+</html>
